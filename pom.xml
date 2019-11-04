@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.jenkins-ci.plugins</groupId>
+    <artifactId>plugin</artifactId>
+    <version>3.49</version>
+    <relativePath />
+  </parent>
+  <groupId>io.jenkins.configuration-as-code</groupId>
+  <artifactId>parent</artifactId>
+  <version>${revision}${changelist}</version>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>snakeyaml</module>
+    <module>plugin</module>
+    <module>integrations</module>
+  </modules>
+
+  <properties>
+    <revision>1.33</revision>
+    <changelist>-SNAPSHOT</changelist>
+    <jenkins.version>2.60.3</jenkins.version>
+    <java.level>8</java.level>
+    <tagNameFormat>configuration-as-code-@{project.version}</tagNameFormat>
+  </properties>
+
+  <name>Configuration as Code Parent</name>
+  <description>The Configuration as Code plugin has been designed as an opinionated way to configure Jenkins based on human-readable declarative configuration files</description>
+  <url>https://github.com/jenkinsci/configuration-as-code-plugin</url>
+
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>http://opensource.org/licenses/MIT</url>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:git://github.com/jenkinsci/configuration-as-code-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:jenkinsci/configuration-as-code-plugin.git</developerConnection>
+    <url>https://github.com/jenkinsci/configuration-as-code-plugin</url>
+    <tag>${scmTag}</tag>
+  </scm>
+
+  <repositories>
+    <repository>
+      <id>repo.jenkins-ci.org</id>
+      <url>https://repo.jenkins-ci.org/public/</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>repo.jenkins-ci.org</id>
+      <url>https://repo.jenkins-ci.org/public/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>3.1.0</version>
+          <dependencies>
+            <dependency>
+              <groupId>com.puppycrawl.tools</groupId>
+              <artifactId>checkstyle</artifactId>
+              <version>8.26</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>${maven.multiModuleProjectDirectory}/.mvn/checkstyle.xml</configLocation>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <sourceDirectories>
+            <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+          </sourceDirectories>
+          <testSourceDirectories>
+            <sourceDirectory>${project.build.testSourceDirectory}</sourceDirectory>
+          </testSourceDirectories>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
